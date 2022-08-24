@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:blocapi/cubit/home/home_state.dart';
 import 'package:blocapi/model/get_users_model.dart';
+import 'package:blocapi/service/remote/delete_user_service.dart';
 import 'package:blocapi/service/remote/get_users_service.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -17,6 +18,17 @@ class HomeCubit extends Cubit<HomeState> {
         emit(HomeCompleteState(value));
       } else {
         emit(HomeErrorState(value));
+      }
+    });
+  }
+
+  void deleteUser(String name, String email) async {
+    emit(HomeLoadingState());
+    await DeleteUserService.deleteUser(name, email).then((value) {
+      if (value == "No internet") {
+        emit(HomeErrorState(value));
+      } else {
+        emit(HomeDoneState(value));
       }
     });
   }

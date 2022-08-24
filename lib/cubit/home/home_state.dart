@@ -19,6 +19,11 @@ class HomeCompleteState extends HomeState {
   HomeCompleteState(this.data);
 }
 
+class HomeDoneState extends HomeState {
+  String message;
+  HomeDoneState(this.message);
+}
+
 class HomeErrorState extends HomeState {
   String error;
   HomeErrorState(this.error);
